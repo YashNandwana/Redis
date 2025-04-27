@@ -6,6 +6,8 @@ type Request struct {
 }
 
 type Response struct {
-	Body   string
-	IsNull bool
+	Body            string
+	Array           []string
+	IsNull          bool
+	IsArrayResponse bool
 }

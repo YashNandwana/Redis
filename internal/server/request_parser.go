@@ -30,10 +30,8 @@ func (p *RESPParser) ReadRequest(conn net.Conn) (Request, error) {
 }
 
 func (p *RESPParser) WriteResponse(conn net.Conn, resp Response) error {
-	data := fmt.Sprintf("$%d\r\n%s\r\n", len(resp.Body), resp.Body)
-	if resp.IsNull {
-		data = "$-1\r\n"
-	}
+	fmt.Println(resp)
+	data := generateResponse(resp)
 	_, err := conn.Write([]byte(data))
 	return err
 }

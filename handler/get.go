@@ -1,7 +1,7 @@
 package handler
 
 import (
-	getCommand "github.com/codecrafters-io/redis-starter-go/internal/command/get"
+	getCommand "github.com/codecrafters-io/redis-starter-go/internal/command"
 	"github.com/codecrafters-io/redis-starter-go/internal/server"
 	"github.com/codecrafters-io/redis-starter-go/internal/storage"
 )

@@ -45,3 +45,27 @@ func parseRESP(reader *bufio.Reader) ([]string, error) {
 	}
 	return cmd, nil
 }
+
+func generateResponse(resp Response) string {
+	var data string
+	if resp.IsNull {
+		data = "$-1\r\n"
+		return data
+	}
+	if resp.IsArrayResponse {
+		data = generateArrayResponse(resp.Array)
+	} else {
+		data = fmt.Sprintf("$%d\r\n%s\r\n", len(resp.Body), resp.Body)
+	}
+	return data
+}
+
+func generateArrayResponse(resp []string) string {
+	data := fmt.Sprintf("*%d\r\n", len(resp))
+	for _, bulkString := range resp {
+		size := len(bulkString)
+		suffix := fmt.Sprintf("$%d\r\n%s\r\n", size, bulkString)
+		data += suffix
+	}
+	return data
+}

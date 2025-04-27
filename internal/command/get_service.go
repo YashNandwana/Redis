@@ -1,4 +1,4 @@
-package set
+package command
 
 import (
 	"github.com/codecrafters-io/redis-starter-go/internal/storage"

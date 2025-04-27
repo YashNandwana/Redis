@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/codecrafters-io/redis-starter-go/internal/command/set"
+	"github.com/codecrafters-io/redis-starter-go/internal/command"
 	"github.com/codecrafters-io/redis-starter-go/internal/server"
 	"github.com/codecrafters-io/redis-starter-go/internal/storage"
 )
@@ -15,7 +15,7 @@ func NewSetHandler(db *storage.InMemoryDB) *SetHandler {
 }
 
 func (h *SetHandler) Handle(req server.Request) (server.Response, error) {
-	setKey := set.NewSetCommandController(req)
+	setKey := command.NewSetCommandController(req)
 	err := setKey.SetKey(h.db)
 	if err != nil {
 		return server.Response{

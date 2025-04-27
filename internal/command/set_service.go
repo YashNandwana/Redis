@@ -1,4 +1,4 @@
-package set
+package command
 
 import (
 	"github.com/codecrafters-io/redis-starter-go/internal/server"
@@ -43,24 +43,11 @@ func NewSetCommandController(payload server.Request) *setKey {
 }
 
 func (s *setKey) SetKey(db *storage.InMemoryDB) error {
+	var err error
 	if s.PX == 0 && s.EX == 0 {
-		err := db.Set(s.Key, s.Value)
-		if err != nil {
-			return err
-		}
-		return nil
+		err = db.Set(s.Key, s.Value)
 	} else {
-		if s.PX != 0 {
-			err := db.SetWithTTL(s.Key, s.Value, s.PX)
-			if err != nil {
-				return err
-			}
-		} else {
-			err := db.SetWithTTL(s.Key, s.Value, s.EX)
-			if err != nil {
-				return err
-			}
-		}
+		err = db.SetWithTTL(s.Key, s.Value, s.PX)
 	}
-	return nil
+	return err
 }

@@ -20,6 +20,8 @@ func (r *Router) Register(db *storage.InMemoryDB) {
 	r.doRegister("ECHO", NewEchoHandler())
 	r.doRegister("SET", NewSetHandler(db))
 	r.doRegister("GET", NewGetHandler(db))
+	r.doRegister("CONFIG", NewConfigHandler(db))
+	r.doRegister("KEYS", NewKeysHandler(db))
 }
 
 func (r *Router) doRegister(cmd string, h server.Handler) {
